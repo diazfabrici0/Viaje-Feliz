@@ -48,17 +48,7 @@ class Viaje {
       "numDoc" => $numDoc
     );
   }
-
-  public function borrarPasajero($numDoc) {
-    foreach ($this->pasajeros as $key => $value) {
-      if ($value["numDoc"] == $numDoc) {
-        unset($this->pasajeros[$key]);
-        return true;
-      }
-    }
-    return false;
-  }
-
+  
   public function modificarPasajerox($indice, $nombre, $apellido, $numDoc) {
     if($indice >= 0 && $indice < count($this->pasajeros)) {
       $pasajero = [
