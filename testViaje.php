@@ -23,7 +23,7 @@ while($opcion != 4) {
   echo "3. Ver información del viaje\n";
   echo "4. Salir\n";
 
-  $opcion = readline("Seleccione una opción: \n");
+  $opcion = readline("Seleccione una opción: ");
 
   switch($opcion) {
     case 1:
@@ -35,9 +35,9 @@ while($opcion != 4) {
       
       $cantidadPasajeros = readline("Ingrese la cantidad de pasajeros: ");
       for($i = 0; $i < $cantidadPasajeros; $i++) {
-        $nombre = readline("Ingrese el nombre del pasajero $i: ");
-        $apellido = readline("Ingrese el apellido del pasajero $i: ");
-        $numDoc = readline("Ingrese el número de documento del pasajero $i: ");
+        $nombre = readline("Ingrese el nombre del pasajero " . ($i+1) . ": ");
+        $apellido = readline("Ingrese el apellido del pasajero " . ($i+1) . ": ");
+        $numDoc = readline("Ingrese el número de documento del pasajero " . ($i+1) . ": ");
 
         $viaje->agregarPasajero($nombre, $apellido, $numDoc);
       }
@@ -49,13 +49,15 @@ while($opcion != 4) {
       
       if ($codeViaje != null){
 
-        while($subopcion != 5) {
+        while($subopcion != 7) {
           echo "Modificar información del viaje:\n";
           echo "1. Modificar código\n";
           echo "2. Modificar destino\n";
           echo "3. Modificar cantidad máxima de pasajeros\n";
           echo "4. Modificar datos de un pasajero\n";
-          echo "5. Salir\n\n";
+          echo "5. Agregar otro pasajero \n";
+          echo "6. Eliminar un pasajero \n";
+          echo "7. Salir\n\n";
 
           $subopcion = readline("Seleccione una opción: ");
 
@@ -96,11 +98,27 @@ while($opcion != 4) {
                   }else{
                     echo "debe haber ingresado un pasajero anteriormente \n";
                   }
-            case 5:
+              case 5:
+                $nombre = readline("Ingrese el nombre del pasajero " . ($i+1) . ": ");
+                $apellido = readline("Ingrese el apellido del pasajero " . ($i+1) . ": ");
+                $numDoc = readline("Ingrese el número de documento del pasajero " . ($i+1) . ": ");
+        
+                $viaje->agregarPasajero($nombre, $apellido, $numDoc);
+                break;
+            
+              case 6:
+                $elNum = readline("Ingrese el documento del pasajero que quiere eliminar: ");
+                $viaje->borrarPasajero($elNum);
+                break;
+
+              case 7:
+                echo "Saliendo \n";
+                break;
+              default:
+                echo "Opción inválida\n";
+                break;
               break;
-            default:
-              echo "Opción inválida\n";
-              break;
+          break;
           }
         }
       break;
