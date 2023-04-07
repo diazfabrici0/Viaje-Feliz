@@ -1,6 +1,11 @@
 <?php
 include 'ViajeFeliz.php';
 
+/** MUESTRA LOS PASAJEROS
+ * @param int $cantidadPasajeros
+ * @return 
+ */
+
 
 echo "\n Bienvenido al registro de aerolinea Viaje Feliz \n\n";
 
@@ -10,6 +15,7 @@ $destino = null;
 $maxPasajeros = null;
 $indicePasajero = null;
 
+
 while($opcion != 4) {
   echo "Menú:\n";
   echo "1. Cargar información del viaje\n";
@@ -17,7 +23,7 @@ while($opcion != 4) {
   echo "3. Ver información del viaje\n";
   echo "4. Salir\n";
 
-  $opcion = readline("Seleccione una opción: ");
+  $opcion = readline("Seleccione una opción: \n");
 
   switch($opcion) {
     case 1:
@@ -104,7 +110,9 @@ while($opcion != 4) {
       break;
     case 3:
       if ($codeViaje != null) {
-        $viaje->mostrarDatos();
+        echo $viaje . "\n";
+        $pasaj = $viaje->mostrarPasajeros();
+        echo $pasaj;
         break;
       }else{
         echo "Debe haber ingresado un viaje anteriormente \n";

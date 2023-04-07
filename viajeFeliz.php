@@ -63,7 +63,29 @@ class Viaje {
     }
   }
 
-  public function mostrarDatos() {
+  public function __toString()
+  {
+    return "Codigo de viaje: " . $this->codeViaje . "\n" . "Destino del viaje: " . $this->destino . "\n" . "Cantidad máxima de pasajeros: " . $this->maxPasajeros . "\n";
+  }
+
+  public function mostrarPasajeros() {
+    $pasajeros = $this->pasajeros;
+    $cadena = "   PASAJEROS \n";
+    foreach($pasajeros as $index => $pasajero) {
+      $cadena .= "Pasajero " . ($index + 1) . "\n" . "Nombre: " . $pasajero['nombre'] . "\n" . "Apellido: " . $pasajero['apellido'] . "\n" . "Número de Documento: " . $pasajero['numDoc'] . "\n \n";
+    }
+    return $cadena;
+  }
+
+  /*public function mostrarPasajeros() {
+    $pasajeros = $this->pasajeros;
+    foreach($pasajeros as $index => $pasajero) {
+      $cadena = "Pasajero " . ($index + 1) . "\n" . "Nombre: " . $pasajero['nombre'] . "\n" . "Apellido: " . $pasajero['apellido'] . "\n" . "Número de Documento: " . $pasajero['numDoc'] . "\n";
+      return $cadena;
+    }
+  }*/
+
+  /*public function mostrarDatos() {
     echo "Código: " . $this->codeViaje . "\n";
     echo "Destino: " . $this->destino . "\n";
     echo "Cantidad máxima de pasajeros: " . $this->maxPasajeros . "\n";
@@ -80,5 +102,5 @@ class Viaje {
           echo "Número de documento: " . $pasajero['numDoc'] . "<\n><\n>";
         }
       }
-  }
+  }*/
 }
