@@ -1,16 +1,28 @@
 <?php
 
+include_once ("responsableV.php");
+
 class Viaje {
   private $codeViaje;
   private $destino;
   private $maxPasajeros;
   private $pasajeros;
+  private $responsableV;
 
-  public function __construct($codeViaje, $destino, $maxPasajeros) {
+  public function __construct($codeViaje, $destino, $maxPasajeros, $responsableV) {
     $this->codeViaje = $codeViaje;
     $this->destino = $destino;
     $this->maxPasajeros = $maxPasajeros;
+    $this->responsableV = $responsableV;
     $this->pasajeros = array();
+  }
+
+  public function setResponsableV($responsableV){
+    $this->responsableV = $responsableV;
+  }
+
+  public function getResponsableV(){
+    return $this->responsableV;
   }
 
   public function obtenercodigoViaje() {
@@ -65,7 +77,10 @@ class Viaje {
 
   public function __toString()
   {
-    return "Codigo de viaje: " . $this->codeViaje . "\n" . "Destino del viaje: " . $this->destino . "\n" . "Cantidad máxima de pasajeros: " . $this->maxPasajeros . "\n";
+    return "Codigo de viaje: " . $this->codeViaje . 
+    "\n" . "Destino del viaje: " . $this->destino . 
+    "\n" . "Cantidad máxima de pasajeros: " . $this->maxPasajeros . "\n" . 
+    $this->responsableV;
   }
 
   public function mostrarPasajeros() {
@@ -84,6 +99,6 @@ class Viaje {
         return true;
       }
     }
-    return false;
   }
+
 }
