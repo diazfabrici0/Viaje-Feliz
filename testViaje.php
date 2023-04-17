@@ -19,6 +19,7 @@ $telefono = null;
 
 
 
+
 while($opcion != 4) {
 
   echo "Menú:\n";
@@ -196,11 +197,14 @@ while($opcion != 4) {
 
                 $numDoc = readline("Ingrese el número de documento del pasajero " . ($i+1) . ": ");
 
-                $telefono = readline("Ingrese el número de teledono del pasajero" . ($i+1) . ":");
+                $telefono = readline("Ingrese el número de telefono del pasajero " . ($i+1) . ": ");
 
+              
                 $pasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono);
-        
-                $viaje->agregarPasajero($pasajero);
+
+                $cad = $viaje->agregarPasajero2($pasajero);
+
+                echo $cad;
 
                 break;
             

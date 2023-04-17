@@ -74,9 +74,28 @@ class Viaje {
 
   }
 
-
   public function agregarPasajero($pasajeros)  {
     $this->colPasajeros[] = $pasajeros;
+  }
+
+  public function agregarPasajero2($pasajeros) {
+    $numDoc = $pasajeros->getNroDoc();
+    if ($this->buscarPasajero($numDoc) !== null) {
+      $cad = "El pasajero con número de documento $numDoc ya está registrado en el viaje.\n" ;
+  } else {
+    $this->colPasajeros[] = $pasajeros;
+      $cad = "El pasajero fue agregado exitosamente.\n";
+  }
+  return $cad;
+  }
+  
+  public function buscarPasajero($numeroDocumento) {
+    foreach ($this->colPasajeros as $pasajero) {
+        if ($pasajero->getNroDoc() === $numeroDocumento) {
+            return $pasajero;
+        }
+    }
+    return null;
   }
 
   public function getColPasajeros(){
