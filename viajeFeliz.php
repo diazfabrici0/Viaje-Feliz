@@ -21,95 +21,140 @@ class Viaje {
   }
 
   public function setResponsableV($responsableV){
+
     $this->responsableV = $responsableV;
+
   }
 
   public function getResponsableV(){
+
     return $this->responsableV;
+
   }
 
   public function obtenercodigoViaje() {
+
     return $this->codeViaje;
+
   }
 
   public function ponercodigoViaje($codeViaje) {
+
     $this->codeViaje = $codeViaje;
+
   }
 
   public function obtenerDestino() {
+
     return $this->destino;
+
   }
 
   public function ponerDestino($destino) {
+
     $this->destino = $destino;
+
   }
 
   public function obtenerCantMaxPasajeros() {
+
     return $this->maxPasajeros;
+
   }
 
   public function ponerCantMaxPasajeros($maxPasajeros) {
+
     $this->maxPasajeros = $maxPasajeros;
+
   }
 
   public function obtenerPasajeros() {
+
     return $this->pasajeros;
+
   }
 
-  public function agregarPasajero($pasajeros) {
+
+  public function agregarPasajero($pasajeros)  {
     $this->colPasajeros[] = $pasajeros;
   }
 
   public function getColPasajeros(){
+
     return $this->colPasajeros;
+
   }
 
   public function setColPasajeros ($colPasajeros){
+
     $this->colPasajeros = $colPasajeros;
+
   }
   
-  public function modificarPasajerox($indice, $nombre, $apellido, $numDoc) {
-    if($indice >= 0 && $indice < count($this->pasajeros)) {
-      $pasajero = [
-        'nombre' => $nombre,
-        'apellido' => $apellido,
-        'numDoc' => $numDoc
-      ];
-      $this->pasajeros[$indice] = $pasajero;
-      return true;
-    } else {
-      return false;
+public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nuevoDoc, $nuevoTelefono){
+  $encontrado = false;
+  $colPasajeros = $this->colPasajeros;
+  foreach($colPasajeros as $index => $pasajeros) {
+    if($pasajeros->getNroDoc() == $docModif){
+      $pasajeros->setNombre($nuevoNombre);
+      $pasajeros->setApellido($nuevoApellido);
+      $pasajeros->setNroDoc($nuevoDoc);
+      $pasajeros->setTelefono($nuevoTelefono);
+      
+      $encontrado = true;
+      echo "Se modifico el pasajero de manera exitosa \n";
+      break;
     }
   }
 
+  if (!$encontrado){
+    echo "No se encontró un pasajero con el numero de documento especificado";
+  }
+
+}
+
+
   public function __toString()
   {
+
     return "Codigo de viaje: " . $this->codeViaje . 
+
     "\n" . "Destino del viaje: " . $this->destino . 
+
     "\n" . "Cantidad máxima de pasajeros: " . $this->maxPasajeros . "\n" . 
+
     $this->responsableV;
+
   }
 
   public function mostrarPasajeros() {
+
     $colPasajeros = $this->colPasajeros;
+
     $cadena = "   PASAJEROS \n";
+
     foreach($colPasajeros as $index => $pasajeros) {
+
       $cadena .= "\nPasajero " . ($index + 1)  .   
+
       "\n\nNombre: " . $pasajeros->getNombre() . 
+
       "\nApellido: " . $pasajeros->getApellido() .
+
       "\nNumero de documento: " . $pasajeros->getNroDoc() .
+
       "\nNumero de telefono: " . $pasajeros->getTelefono(). "\n";
-      //"\n" . "Nombre: " . $pasajero['nombre'] . 
-      //"\n" . "Apellido: " . $pasajero['apellido'] . 
-      //"\n" . "Número de Documento: " . $pasajero['numDoc'] . "\n \n";
+
     }
     return $cadena;
   }
 
-  public function borrarPasajero($numDoc) {
-    foreach ($this->pasajeros as $key => $value) {
-      if ($value["numDoc"] == $numDoc) {
-        unset($this->pasajeros[$key]);
+  public function borrarPasajero($nDoc) {
+    $colPasajeros = $this->colPasajeros;
+    foreach ($this->colPasajeros as $key => $pasajeros) {
+      if ($pasajeros->getNroDoc() == $nDoc) {
+        
+        unset($this->colPasajeros[$key]);
         return true;
       }
     }

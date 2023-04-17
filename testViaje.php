@@ -3,10 +3,7 @@
 include_once ("viajeFeliz.php");
 include_once ("responsableV.php");
 
-/** MUESTRA LOS PASAJEROS
- * @param int $cantidadPasajeros
- * @return 
- */
+
 
 
 echo "\n Bienvenido al registro de aerolinea Viaje Feliz \n\n";
@@ -18,6 +15,8 @@ $maxPasajeros = null;
 $indicePasajero = null;
 $responsableV = null;
 $pasajero = null;
+$telefono = null;
+
 
 
 while($opcion != 4) {
@@ -76,6 +75,7 @@ while($opcion != 4) {
         $telefono = readline("Ingrese el número de telefono del pasajero: ");
 
         $pasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono);
+        
 
         $viaje->agregarPasajero($pasajero);
 
@@ -167,7 +167,7 @@ while($opcion != 4) {
                 
                   if ($indicePasajero >= 0){
 
-                    $indicePasajero = readline("Ingrese el indice del pasajero que desea modificar: ");
+                    $nDoc = readline("Ingrese el documento del pasajero que desea modificar: ");
 
                     $nombre = readline("Ingrese el nuevo nombre: ");
 
@@ -175,14 +175,19 @@ while($opcion != 4) {
 
                     $numDoc = readline("Ingrese el nuevo número de documento: ");
 
-                    $viaje->modificarPasajerox($indicePasajero, $nombre, $apellido, $numDoc);
+                    $telefono = readline("Ingrese el nuevo número de teléfono: ");
 
+
+                    $viaje->modificarPasajerox($nDoc, $nombre, $apellido, $numDoc, $telefono);
+
+                    break;
                   
                   }else{
 
                     echo "debe haber ingresado un pasajero anteriormente \n";
 
                   }
+                  
               case 5:
 
                 $nombre = readline("Ingrese el nombre del pasajero " . ($i+1) . ": ");
@@ -191,8 +196,11 @@ while($opcion != 4) {
 
                 $numDoc = readline("Ingrese el número de documento del pasajero " . ($i+1) . ": ");
 
+                $telefono = readline("Ingrese el número de teledono del pasajero" . ($i+1) . ":");
+
+                $pasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono);
         
-                $viaje->agregarPasajero($nombre, $apellido, $numDoc);
+                $viaje->agregarPasajero($pasajero);
 
                 break;
             
@@ -201,6 +209,7 @@ while($opcion != 4) {
                 $elNum = readline("Ingrese el documento del pasajero que quiere eliminar: ");
 
                 $viaje->borrarPasajero($elNum);
+                echo "\nPasajero eliminado exitosamente!\n";
                 
                 break;
 
