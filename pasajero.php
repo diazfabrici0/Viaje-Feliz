@@ -4,6 +4,7 @@
         private $apellido;
         private $nroDoc;
         private $telefono;
+        
 
         public function __construct($nombre, $apellido, $nroDoc, $telefono){
             $this->nombre = $nombre;
@@ -11,6 +12,7 @@
             $this->nroDoc = $nroDoc;
             $this->telefono = $telefono;
         }
+
 
         public function getNombre(){
             return $this->nombre;
@@ -44,7 +46,13 @@
             $this->telefono = $telefono;
         }
 
+
         public function __toString(){
+
+            return "\nNombre: " . $this->nombre . 
+            "\nApellido: " . $this->apellido . 
+            "\nNumero de documento : " . $this->nroDoc . 
+            "\nNumero de teledono: " . $this->telefono;
             
         }
     }

@@ -16,6 +16,8 @@ $codeViaje = null;
 $destino = null;
 $maxPasajeros = null;
 $indicePasajero = null;
+$responsableV = null;
+$pasajero = null;
 
 
 while($opcion != 4) {
@@ -60,7 +62,7 @@ while($opcion != 4) {
       
       $cantidadPasajeros = readline("Ingrese la cantidad de pasajeros: ");
 
-      $viaje = new Viaje($codeViaje, $destino, $maxPasajeros, $responsableV);
+      $viaje = new Viaje($codeViaje, $destino, $maxPasajeros, $responsableV, $pasajero);
 
 
       for($i = 0; $i < $cantidadPasajeros; $i++) {
@@ -71,9 +73,18 @@ while($opcion != 4) {
 
         $numDoc = readline("Ingrese el número de documento del pasajero " . ($i+1) . ": ");
 
-        $viaje->agregarPasajero($nombre, $apellido, $numDoc);
+        $telefono = readline("Ingrese el número de telefono del pasajero: ");
+
+        $pasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono);
+
+        $viaje->agregarPasajero($pasajero);
+
+       
 
       }
+
+      
+
 
       break;
 

@@ -1,6 +1,7 @@
 <?php
 
 include_once ("responsableV.php");
+include_once ("pasajero.php");
 
 class Viaje {
   private $codeViaje;
@@ -8,13 +9,15 @@ class Viaje {
   private $maxPasajeros;
   private $pasajeros;
   private $responsableV;
+  private $colPasajeros;
 
-  public function __construct($codeViaje, $destino, $maxPasajeros, $responsableV) {
+  public function __construct($codeViaje, $destino, $maxPasajeros, $responsableV, $pasajeros) {
     $this->codeViaje = $codeViaje;
     $this->destino = $destino;
     $this->maxPasajeros = $maxPasajeros;
     $this->responsableV = $responsableV;
-    $this->pasajeros = array();
+    $this->pasajeros = $pasajeros;
+    $this->colPasajeros = array();
   }
 
   public function setResponsableV($responsableV){
@@ -53,12 +56,16 @@ class Viaje {
     return $this->pasajeros;
   }
 
-  public function agregarPasajero($nombre, $apellido, $numDoc) {
-    $this->pasajeros[] = array(
-      "nombre" => $nombre,
-      "apellido" => $apellido,
-      "numDoc" => $numDoc
-    );
+  public function agregarPasajero($pasajeros) {
+    $this->colPasajeros[] = $pasajeros;
+  }
+
+  public function getColPasajeros(){
+    return $this->colPasajeros;
+  }
+
+  public function setColPasajeros ($colPasajeros){
+    $this->colPasajeros = $colPasajeros;
   }
   
   public function modificarPasajerox($indice, $nombre, $apellido, $numDoc) {
@@ -84,10 +91,17 @@ class Viaje {
   }
 
   public function mostrarPasajeros() {
-    $pasajeros = $this->pasajeros;
+    $colPasajeros = $this->colPasajeros;
     $cadena = "   PASAJEROS \n";
-    foreach($pasajeros as $index => $pasajero) {
-      $cadena .= "Pasajero " . ($index + 1) . "\n" . "Nombre: " . $pasajero['nombre'] . "\n" . "Apellido: " . $pasajero['apellido'] . "\n" . "Número de Documento: " . $pasajero['numDoc'] . "\n \n";
+    foreach($colPasajeros as $index => $pasajeros) {
+      $cadena .= "\nPasajero " . ($index + 1)  .   
+      "\n\nNombre: " . $pasajeros->getNombre() . 
+      "\nApellido: " . $pasajeros->getApellido() .
+      "\nNumero de documento: " . $pasajeros->getNroDoc() .
+      "\nNumero de telefono: " . $pasajeros->getTelefono(). "\n";
+      //"\n" . "Nombre: " . $pasajero['nombre'] . 
+      //"\n" . "Apellido: " . $pasajero['apellido'] . 
+      //"\n" . "Número de Documento: " . $pasajero['numDoc'] . "\n \n";
     }
     return $cadena;
   }
