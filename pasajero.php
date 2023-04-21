@@ -49,10 +49,10 @@
 
         public function __toString(){
 
-            return "\nNombre: " . $this->nombre . 
-            "\nApellido: " . $this->apellido . 
-            "\nNumero de documento : " . $this->nroDoc . 
-            "\nNumero de teledono: " . $this->telefono;
+            return "\nNombre: " . $this->getNombre() . 
+            "\nApellido: " . $this->getApellido() . 
+            "\nNumero de documento : " . $this->getNroDoc() . 
+            "\nNumero de teledono: " . $this->getTelefono();
             
         }
     }

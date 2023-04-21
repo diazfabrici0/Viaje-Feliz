@@ -136,11 +136,11 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
   public function __toString()
   {
 
-    return "Codigo de viaje: " . $this->codeViaje . 
+    return "Codigo de viaje: " . $this->obtenerCodigoViaje() . 
 
-    "\n" . "Destino del viaje: " . $this->destino . 
+    "\n" . "Destino del viaje: " . $this->obtenerDestino() . 
 
-    "\n" . "Cantidad máxima de pasajeros: " . $this->maxPasajeros . "\n" . 
+    "\n" . "Cantidad máxima de pasajeros: " . $this->obtenerCantMaxPasajeros() . "\n" . 
 
     $this->responsableV;
 
@@ -148,7 +148,7 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
 
   public function mostrarPasajeros() {
 
-    $colPasajeros = $this->colPasajeros;
+    $colPasajeros = $this->getColPasajeros();
 
     $cadena = "   PASAJEROS \n";
 

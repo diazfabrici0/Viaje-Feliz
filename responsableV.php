@@ -74,13 +74,13 @@
 
             return "\n      RESPONSABLE A CARGO \n" . 
 
-            "Nro de empleado: " . $this->nroEmpleado .
+            "Nro de empleado: " . $this->getNroEmpleado() .
 
-             " Lic " . $this->nroLicencia . 
+             " Lic " . $this->getNroLicencia() . 
 
-             "\nNombre: " . $this->nombre . 
+             "\nNombre: " . $this->getNombre() . 
 
-             " " . $this->apellido . "\n";
+             " " . $this->getApellido() . "\n";
 
         }
     }
