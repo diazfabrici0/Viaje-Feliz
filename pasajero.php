@@ -4,13 +4,17 @@
         private $apellido;
         private $nroDoc;
         private $telefono;
+        private $numAsiento;
+        private $numTicket;
         
 
-        public function __construct($nombre, $apellido, $nroDoc, $telefono){
+        public function __construct($nombre, $apellido, $nroDoc, $telefono, $numAsiento, $numTicket){
             $this->nombre = $nombre;
             $this->apellido = $apellido;
             $this->nroDoc = $nroDoc;
             $this->telefono = $telefono;
+            $this->numAsiento = $numAsiento;
+            $this->numTicket = $numTicket;
         }
 
 
@@ -30,6 +34,14 @@
             return $this->telefono;
         }
 
+        public function getNumAsiento(){
+            return $this->numAsiento;
+        }
+
+        public function getNumTicket(){
+            return $this->numTicket;
+        }
+
         public function setNombre($nombre){
             $this->nombre = $nombre;
         }
@@ -44,6 +56,14 @@
 
         public function setTelefono($telefono){
             $this->telefono = $telefono;
+        }
+
+        public function setNumAsiento($numAsiento){
+            $this->numAsiento = $numAsiento;
+        }
+
+        public function setNumTicket($numTicket){
+            $this->numTicket = $numTicket;
         }
 
 

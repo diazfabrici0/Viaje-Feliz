@@ -7,15 +7,15 @@
         private $requiereAsistencia;
         private $requiereComida;
 
-        public function __construct($nombre, $apellido, $nDoc, $telefono, $requiereSillaRuedas, $requiereAsistencia, $requiereComida){
-            parent::__construct($nombre, $apellido, $nDoc, $telefono);
+        public function __construct($nombre, $apellido, $nDoc, $telefono, $numAsiento, $numTicket, $requiereSillaRuedas, $requiereAsistencia, $requiereComida){
+            parent::__construct($nombre, $apellido, $nDoc, $telefono, $numAsiento, $numTicket);
             $this->requiereSillaRuedas = $requiereSillaRuedas;
             $this->requiereAsistencia = $requiereAsistencia;
             $this->requiereComida = $requiereComida;
         }
 
         public function getRequiereSillaRuedas(){
-            $this->requiereSillaRuedas;
+           return $this->requiereSillaRuedas;
         }
 
         public function setRequiereSillaRuedas($requiereSillaRuedas){
@@ -23,7 +23,7 @@
         }
 
         public function getRequiereAsistencia(){
-            $this->requiereAsistencia;
+           return $this->requiereAsistencia;
         }
 
         public function setRequiereAsistencia($requiereAsistencia){
@@ -31,7 +31,7 @@
         }
 
         public function getRequiereComida(){
-            $this->requiereComida;
+           return $this->requiereComida;
         }
 
         public function setRequiereComida($requiereComida){

@@ -6,14 +6,14 @@ include_once("pasajero.php");
         private $numViajeroFrecuente;
         private $cantMillasPasajero;
 
-        public function __construct($nombre, $apellido, $nDoc, $telefono, $numViajeroFrecuente, $cantMillasPasajero){
-            parent::__construct($nombre, $apellido, $nDoc, $telefono);
+        public function __construct($nombre, $apellido, $nDoc, $telefono, $numAsiento, $numTicket, $numViajeroFrecuente, $cantMillasPasajero){
+            parent::__construct($nombre, $apellido, $nDoc, $telefono, $numAsiento, $numTicket);
             $this->numViajeroFrecuente = $numViajeroFrecuente;
             $this->cantMillasPasajero = $cantMillasPasajero;
         }
 
         public function getNumViajeroFrecuente(){
-            $this->numViajeroFrecuente;
+            return $this->numViajeroFrecuente;
         }
 
         public function setNumViajeroFrecuente($numViajeroFrecuente){
@@ -21,7 +21,7 @@ include_once("pasajero.php");
         }
 
         public function getCantMillasPasajero(){
-            $this->cantMillasPasajero;
+            return $this->cantMillasPasajero;
         }
 
         public function setCantMillasPasajero($cantMillasPasajero){
