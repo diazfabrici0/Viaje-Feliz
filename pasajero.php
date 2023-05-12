@@ -66,13 +66,21 @@
             $this->numTicket = $numTicket;
         }
 
+        public function darPorcentajeIncremento(){
+            $porcentaje = 10; 
+            return $porcentaje;
+        }
+
 
         public function __toString(){
 
             return "\nNombre: " . $this->getNombre() . 
             "\nApellido: " . $this->getApellido() . 
-            "\nNumero de documento : " . $this->getNroDoc() . 
-            "\nNumero de teledono: " . $this->getTelefono();
+            "\nNumero de documento: " . $this->getNroDoc() . 
+            "\nNumero de telefono: " . $this->getTelefono() . 
+            "\nNumero de Asiento: " . $this->getNumAsiento() . 
+            "\nNummero de Ticket: " . $this->getNumTicket() .
+            "\nPorcentaje de Incremento: " . $this->darPorcentajeIncremento() . "\n";
             
         }
     }

@@ -28,6 +28,15 @@ include_once("pasajero.php");
             $this->cantMillasPasajero = $cantMillasPasajero;
         }
 
+        public function darPorcentajeIncremento(){
+            if($this->cantMillasPasajero > 300){
+                $porcentaje = 30;
+            }else{
+                $porcentaje = parent::darPorcentajeIncremento();
+            }
+            return $porcentaje;
+        }
+
         public function __toString(){
             $cadena = parent:: __toString();
             $cadena.="Número de viajero frecuente: " . $this->getNumViajeroFrecuente() . "\n" . 

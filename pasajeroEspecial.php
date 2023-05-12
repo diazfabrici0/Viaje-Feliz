@@ -38,6 +38,20 @@
             $this->requiereComida = $requiereComida;
         }
 
+        public function darPorcentajeIncremento(){
+            $requiereSillaRuedas = $this->getRequiereSillaRuedas();
+            $requiereAsistencia = $this->getRequiereAsistencia();
+            $requiereComida = $this->getRequiereComida();
+            if($requiereSillaRuedas && $requiereAsistencia && $requiereComida){
+                $porcentaje = 30;
+            }else if($requiereSillaRuedas || $requiereAsistencia || $requiereComida){
+                $porcentaje = 15;
+            }else{
+                $porcentaje = parent::darPorcentajeIncremento();
+            }
+            return $porcentaje;
+        }
+
         public function __toString(){
             $cadena = parent::__toString();
             $cadena .= "Requiere Silla de ruedas: " . $this->getRequiereSillaRuedas() . "\n" .
