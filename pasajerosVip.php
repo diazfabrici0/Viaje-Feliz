@@ -32,7 +32,7 @@ include_once("pasajero.php");
             if($this->cantMillasPasajero > 300){
                 $porcentaje = 30;
             }else{
-                $porcentaje = parent::darPorcentajeIncremento();
+                $porcentaje = 35;
             }
             return $porcentaje;
         }

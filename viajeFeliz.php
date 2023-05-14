@@ -10,14 +10,44 @@ class Viaje {
   private $pasajeros;
   private $responsableV;
   private $colPasajeros;
+  private $costoViaje;
+  private $abonoPasajero;
+  private $cantPasajeros;
 
-  public function __construct($codeViaje, $destino, $maxPasajeros, $responsableV, $pasajeros) {
+  public function __construct($codeViaje, $destino, $maxPasajeros, $responsableV, $pasajeros, $costoViaje, $abonoPasajero, $cantPasajeros) {
     $this->codeViaje = $codeViaje;
     $this->destino = $destino;
     $this->maxPasajeros = $maxPasajeros;
     $this->responsableV = $responsableV;
     $this->pasajeros = $pasajeros;
+    $this->costoViaje = $costoViaje;
+    $this->abonoPasajero = $abonoPasajero;
+    $this->cantPasajeros = $cantPasajeros;
     $this->colPasajeros = array();
+  }
+
+  public function getCantPasajeros(){
+    return $this->cantPasajeros;
+  }
+
+  public function setCantPasajeros($cantPasajeros){
+    $this->cantPasajeros = $cantPasajeros;
+  }
+
+  public function getAbonoPasajero(){
+    return $this->abonoPasajero;
+  }
+
+  public function setAbonoPasajero($abonoPasajero){
+    $this->abonoPasajero = $abonoPasajero;
+  }
+
+  public function getCostoViaje(){
+    return $this->costoViaje;
+  }
+
+  public function setCostoViaje($costoViaje){
+    $this->costoViaje = $costoViaje;
   }
 
   public function setResponsableV($responsableV){
@@ -131,6 +161,35 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
   }
 
 }
+
+  public function hayPasajesDisponibles(){
+    $estado = false;
+    $cantPasajViaje = $this->getCantPasajeros();
+    $cantMax = $this->obtenerCantMaxPasajeros();
+    if($cantPasajViaje < $cantMax){
+      $estado = true;
+    }
+    return $estado;
+  }
+
+  public function venderViaje($pasajeros){
+    $cantMax = $this->obtenerCantMaxPasajeros();
+    $costoFinal = $this->getCostoViaje();
+    while ($this->hayPasajesDisponibles()){
+      $this->colPasajeros[] = $pasajeros;
+      $cantPasajViaje = $this->getCantPasajeros();
+      $cantPasajDisp = $cantMax - $cantPasajViaje; 
+      $this->ponerCantMaxPasajeros($cantPasajDisp);
+      //se suman los valores de costo con los incrementos
+      $incremento = ($pasajeros->darPorcentajeIncremento() % 100);
+      $costoFinal = $costoFinal + ($costoFinal * $incremento);
+    }
+
+    $this->setCostoViaje($costoFinal);
+    $costoTotal = $this->getCostoViaje();
+    return $costoTotal;
+
+  }
 
 
   public function __toString()
