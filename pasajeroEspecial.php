@@ -1,6 +1,6 @@
 <?php
 
-    include_once("pasajero.php");
+    include_once('pasajero.php');
 
     class PasajeroEsp extends Pasajero {
         private $requiereSillaRuedas;
@@ -57,5 +57,6 @@
             $cadena .= "Requiere Silla de ruedas: " . $this->getRequiereSillaRuedas() . "\n" .
             "Requiere Asistencia: " . $this->getRequiereAsistencia() . "\n" . 
             "Requiere comida especial: " . $this->getRequiereComida() . "\n";
+            return $cadena;
         }
     }

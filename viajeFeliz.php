@@ -104,9 +104,9 @@ class Viaje {
 
   }
 
-  public function agregarPasajero($pasajeros)  {
+  /*public function agregarPasajero($pasajeros)  {
     $this->colPasajeros[] = $pasajeros;
-  }
+  }*/
 
   public function agregarPasajero2($pasajeros) {
     $numDoc = $pasajeros->getNroDoc();
