@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../PROG EST/TrabajoPracticoCSSParte3"
+		},
+		{
+			"path": "../practica"
+		},
+		{
+			"path": "../../Bases de datos/PRACTICA DDL"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "TrabajoPracticoCSSParte3"
+	}
+}

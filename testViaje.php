@@ -1,8 +1,74 @@
 <?php
-
+include_once("pasajero.php");
 include_once ("viajeFeliz.php");
 include_once ("responsableV.php");
+include_once ("pasajerosVip.php");
+include_once ("pasajeroEspecial.php");
 
+/**
+ * PIDE LOS DATOS DE UN PASAJERO VIP Y LO CONVIERTE EN OBJETO PARA PasajeroVip
+ * @return obj $personaVip
+ */
+function agregarVip(){
+
+  $nombre = readline("Ingrese el nombre del pasajero: ");
+
+  $apellido = readline("Ingrese el apellido del pasajero: ");
+
+  $numDoc = readline("Ingrese el número de documento del pasajero: ");
+
+  $telefono = readline("Ingrese el número de telefono del pasajero: ");
+
+  $numAsiento = readline("Ingrese el número de asiento: ");
+
+  $numTicket = readline("Ingrese el número del ticket: ");
+
+  $numViajeroFrecuente = readline("Ingrese el número de viajero frecuente: ");
+
+  $cantMillasPasajero = readline("Ingrese la cantidad de millas viajadas anteriormente: ");
+
+  $objPersVip = new PasajeroVip($nombre, $apellido, $numDoc, $telefono, $numAsiento, $numTicket, $numViajeroFrecuente, $cantMillasPasajero);
+
+ return $objPersVip;
+}
+/**
+ * PIDE LOS DATOS DE UN PASAJERO ESP Y LO CONVIERTE EN OBJETO PARA PasajeroEsp
+ * @return obj
+ */
+function agregarEsp(){
+
+  $nombre = readline("Ingrese el nombre del pasajero: ");
+
+  $apellido = readline("Ingrese el apellido del pasajero: ");
+
+  $numDoc = readline("Ingrese el número de documento del pasajero: ");
+
+  $telefono = readline("Ingrese el número de telefono del pasajero: ");
+
+  $numAsiento = readline("Ingrese el número de asiento: ");
+
+  $numTicket = readline("Ingrese el número del ticket: ");
+
+  $requiereSillaRuedas = readline("Requiere silla de ruedas?: ");
+
+  $requiereAsistencia = readline("Requiere Asistencia?: ");
+
+  $requiereComida = readline("Requiere comida especial?: ");
+
+  if($requiereSillaRuedas == "no" || $requiereSillaRuedas == "No"){
+    $requiereSillaRuedas = null;
+  }
+  if($requiereAsistencia == "no" || $requiereAsistencia == "No" ){
+    $requiereAsistencia = null;
+  }
+  if($requiereComida == "no" || $requiereComida == "No"){
+    $requiereComida = null;
+  }
+
+  $objPersEsp = new PasajeroEsp($nombre, $apellido, $numDoc, $telefono, $numAsiento, $numTicket, $requiereSillaRuedas, $requiereAsistencia, $requiereComida);
+
+  return $objPersEsp;
+}
 
 
 
@@ -16,6 +82,10 @@ $indicePasajero = null;
 $responsableV = null;
 $pasajero = null;
 $telefono = null;
+$costo = null;
+$sumaCostos = null;
+$pasajeros = null;
+$colPasajeros = array();
 
 
 
@@ -40,6 +110,7 @@ while($opcion != 4) {
 
       //REGISTRA RESPONSABLE
 
+
       $nroEmpleado = readline("Ingrese el nro del empleado responsable: ");
 
       $nroLicencia = readline("Ingrese el nro de la licencia del empleado: ");
@@ -50,6 +121,7 @@ while($opcion != 4) {
     
       $responsableV = new ResponsableV($nroEmpleado, $nroLicencia, $nombreResp, $apellidoResp);
 
+
       //RESGISTRA EL VIAJE
 
       $codeViaje = readline("Ingrese el código del viaje: ");
@@ -57,29 +129,53 @@ while($opcion != 4) {
       $destino = readline("Ingrese el destino del viaje: ");
 
       $maxPasajeros = readline("Ingrese la cantidad máxima de pasajeros: ");
-      
-      
+
+      $costo = readline("Ingrese el costo del viaje: ");
       
       $cantidadPasajeros = readline("Ingrese la cantidad de pasajeros: ");
 
-      $viaje = new Viaje($codeViaje, $destino, $maxPasajeros, $responsableV, $pasajero);
+      $viaje = new Viaje($codeViaje, $destino, $maxPasajeros, $responsableV, $colPasajeros, $costo, $sumaCostos, $cantidadPasajeros);
 
 
       for($i = 0; $i < $cantidadPasajeros; $i++) {
 
-        $nombre = readline("Ingrese el nombre del pasajero " . ($i+1) . ": ");
+        $vip = readline("Es un pasajero Vip?: ");
 
-        $apellido = readline("Ingrese el apellido del pasajero " . ($i+1) . ": ");
+        $especial = readline("Es un pasajero con requerimientos especiales: ");
 
-        $numDoc = readline("Ingrese el número de documento del pasajero " . ($i+1) . ": ");
+        echo "Pasajero " . ($i+1) . " : \n"; 
 
-        $telefono = readline("Ingrese el número de telefono del pasajero: ");
+        if($vip == "si" || $vip == "Si" || strtolower($vip) == "sí" || strtolower($vip) == "Sí"){
 
-        $pasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono);
+          $pasajeroVip = agregarVip();
+
+          $sumaCostos = $viaje->venderViaje($pasajeroVip);
+
+        }elseif($especial == "si" || $especial == "Si" || strtolower($especial) == "sí" || strtolower($especial) == "Sí"){
+
+          $pasajeroEsp = agregarEsp();
+
+          $sumaCostos = $viaje->venderViaje($pasajeroEsp);
+
+        }else{
+
+          $nombre = readline("Ingrese el nombre del pasajero: ");
+
+          $apellido = readline("Ingrese el apellido del pasajero: ");
+  
+          $numDoc = readline("Ingrese el número de documento del pasajero: ");
+  
+          $telefono = readline("Ingrese el número de telefono del pasajero: ");
+
+          $numAsiento = readline("Ingrese el número de su asiento: ");
+
+          $numTicket = readline("Ingrese su número de ticket: ");
+
+          $pasajeros = new Pasajero($nombre, $apellido, $numDoc, $telefono, $numAsiento, $numTicket);
+
+          $costo = $viaje->venderViaje($pasajeros);
         
-
-        $viaje->agregarPasajero($pasajero);
-
+        }
        
 
       }
@@ -200,7 +296,7 @@ while($opcion != 4) {
                 $telefono = readline("Ingrese el número de telefono del pasajero " . ($i+1) . ": ");
 
               
-                $pasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono);
+                $pasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono, $numAsiento, $numTicket);
 
                 $cad = $viaje->agregarPasajero2($pasajero);
 

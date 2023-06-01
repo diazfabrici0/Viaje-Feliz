@@ -7,23 +7,21 @@ class Viaje {
   private $codeViaje;
   private $destino;
   private $maxPasajeros;
-  private $pasajeros;
   private $responsableV;
-  private $colPasajeros;
+  private $colPasajeros = array();
   private $costoViaje;
-  private $abonoPasajero;
+  private $sumaCostos;
   private $cantPasajeros;
 
-  public function __construct($codeViaje, $destino, $maxPasajeros, $responsableV, $pasajeros, $costoViaje, $abonoPasajero, $cantPasajeros) {
+  public function __construct($codeViaje, $destino, $maxPasajeros, $responsableV, $colPasajeros, $costoViaje, $sumaCostos, $cantPasajeros) {
     $this->codeViaje = $codeViaje;
     $this->destino = $destino;
     $this->maxPasajeros = $maxPasajeros;
     $this->responsableV = $responsableV;
-    $this->pasajeros = $pasajeros;
     $this->costoViaje = $costoViaje;
-    $this->abonoPasajero = $abonoPasajero;
+    $this->sumaCostos = $sumaCostos;
     $this->cantPasajeros = $cantPasajeros;
-    $this->colPasajeros = array();
+    $this->colPasajeros = $colPasajeros;
   }
 
   public function getCantPasajeros(){
@@ -34,12 +32,12 @@ class Viaje {
     $this->cantPasajeros = $cantPasajeros;
   }
 
-  public function getAbonoPasajero(){
-    return $this->abonoPasajero;
+  public function getSumaCostos(){
+    return $this->sumaCostos;
   }
 
-  public function setAbonoPasajero($abonoPasajero){
-    $this->abonoPasajero = $abonoPasajero;
+  public function setSumaCostos($sumaCostos){
+    $this->sumaCostos = $sumaCostos;
   }
 
   public function getCostoViaje(){
@@ -62,67 +60,88 @@ class Viaje {
 
   }
 
-  public function obtenercodigoViaje() {
+  public function getCodigoViaje() {
 
     return $this->codeViaje;
 
   }
 
-  public function ponercodigoViaje($codeViaje) {
+  public function setCodigoViaje($codeViaje) {
 
     $this->codeViaje = $codeViaje;
 
   }
 
-  public function obtenerDestino() {
+  public function getDestino() {
 
     return $this->destino;
 
   }
 
-  public function ponerDestino($destino) {
+  public function setDestino($destino) {
 
     $this->destino = $destino;
 
   }
 
-  public function obtenerCantMaxPasajeros() {
+  public function getCantMaxPasajeros() {
 
     return $this->maxPasajeros;
 
   }
 
-  public function ponerCantMaxPasajeros($maxPasajeros) {
+  public function setCantMaxPasajeros($maxPasajeros) {
 
     $this->maxPasajeros = $maxPasajeros;
 
   }
 
-  public function obtenerPasajeros() {
+ /* public function getPasajeros() {
 
     return $this->pasajeros;
 
-  }
+  }*/
 
-  /*public function agregarPasajero($pasajeros)  {
-    $this->colPasajeros[] = $pasajeros;
+  /*public function agregarPasajeros($pasajeros)  {
+
+
+    
+    $colPasajeros = $this->getColPasajeros();
+
+    array_push($colPasajeros, $pasajeros);
+
+    $this->setColPasajeros($colPasajeros);
+    
+
   }*/
 
   public function agregarPasajero2($pasajeros) {
+
     $numDoc = $pasajeros->getNroDoc();
+
     if ($this->buscarPasajero($numDoc) !== null) {
-      $cad = "El pasajero con número de documento $numDoc ya está registrado en el viaje.\n" ;
-  } else {
-    $this->colPasajeros[] = $pasajeros;
+
+      $cad = "El pasajero con número de documento $numDoc ya está registrado en el viaje.\n";
+
+    } else {
+
+      $this->colPasajeros[] = $pasajeros;
+
       $cad = "El pasajero fue agregado exitosamente.\n";
-  }
+
+    }
+
   return $cad;
   }
   
   public function buscarPasajero($numeroDocumento) {
+
     foreach ($this->colPasajeros as $pasajero) {
+
         if ($pasajero->getNroDoc() === $numeroDocumento) {
+
             return $pasajero;
+
         }
     }
     return null;
@@ -142,7 +161,7 @@ class Viaje {
   
 public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nuevoDoc, $nuevoTelefono){
   $encontrado = false;
-  $colPasajeros = $this->colPasajeros;
+  $colPasajeros = $this->getColPasajeros();
   foreach($colPasajeros as $index => $pasajeros) {
     if($pasajeros->getNroDoc() == $docModif){
       $pasajeros->setNombre($nuevoNombre);
@@ -163,30 +182,54 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
 }
 
   public function hayPasajesDisponibles(){
+
     $estado = false;
+
     $cantPasajViaje = $this->getCantPasajeros();
-    $cantMax = $this->obtenerCantMaxPasajeros();
-    if($cantPasajViaje < $cantMax){
+
+    $cantMax = $this->getCantMaxPasajeros();
+
+    if($cantPasajViaje < $cantMax + 1){
+
       $estado = true;
+
     }
     return $estado;
   }
 
   public function venderViaje($pasajeros){
-    $cantMax = $this->obtenerCantMaxPasajeros();
+
+    $colPasajeros = $this->getColPasajeros();
+
+    $cantMax = $this->getCantMaxPasajeros();
+
     $costoFinal = $this->getCostoViaje();
-    while ($this->hayPasajesDisponibles()){
-      $this->colPasajeros[] = $pasajeros;
+
+    while ($this->hayPasajesDisponibles() == true){
+
+      //$this->agregarPasajeros($pasajeros);
+      array_push($colPasajeros, $pasajeros);
+
+      $this->setColPasajeros($colPasajeros);
+
       $cantPasajViaje = $this->getCantPasajeros();
+
       $cantPasajDisp = $cantMax - $cantPasajViaje; 
-      $this->ponerCantMaxPasajeros($cantPasajDisp);
+
+      $this->setCantMaxPasajeros($cantPasajDisp);
+
       //se suman los valores de costo con los incrementos
-      $incremento = ($pasajeros->darPorcentajeIncremento() % 100);
+
+      $incremento = ($pasajeros->darPorcentajeIncremento() / 100);
+
       $costoFinal = $costoFinal + ($costoFinal * $incremento);
+
     }
 
-    $this->setCostoViaje($costoFinal);
-    $costoTotal = $this->getCostoViaje();
+    $this->setSumaCostos($costoFinal);
+
+    $costoTotal = $this->getSumaCostos();
+
     return $costoTotal;
 
   }
@@ -195,15 +238,30 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
   public function __toString()
   {
 
-    return "Codigo de viaje: " . $this->obtenerCodigoViaje() . 
+    return "Codigo de viaje: " . $this->getCodigoViaje() . 
 
-    "\n" . "Destino del viaje: " . $this->obtenerDestino() . 
+    "\n" . "Destino del viaje: " . $this->getDestino() . 
 
-    "\n" . "Cantidad máxima de pasajeros: " . $this->obtenerCantMaxPasajeros() . "\n" . 
+    "\n" . "Cantidad máxima de pasajeros: " . $this->getCantMaxPasajeros() .
+    
+    "\n" . "Costo del viaje: " . $this->getCostoViaje() .
+    
+    "\n" . "Costo Total: " . $this->getSumaCostos() .
 
     $this->responsableV;
 
   }
+
+  /*public function mostrarPasajeros(){
+    $texto = "\nPASAJEROS\n";
+    $pasajeros = $this->getColPasajeros();
+    $cantPasajeros = count($pasajeros);
+    for($i = 0; $i < $cantPasajeros; $i++){
+        $texto = $texto . $pasajeros[$i];
+    }
+
+    return $texto;
+}*/
 
   public function mostrarPasajeros() {
 
@@ -221,7 +279,13 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
 
       "\nNumero de documento: " . $pasajeros->getNroDoc() .
 
-      "\nNumero de telefono: " . $pasajeros->getTelefono(). "\n";
+      "\nNumero de telefono: " . $pasajeros->getTelefono() .
+      
+      "\nNumero de  Asiento: " . $pasajeros->getNumAsiento() .
+
+      "\nNumero de Ticket: " . $pasajeros->getNumTicket() .
+
+      "\n";
 
     }
     return $cadena;
