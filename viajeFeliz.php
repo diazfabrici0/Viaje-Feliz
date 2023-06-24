@@ -5,12 +5,19 @@ include_once ("pasajero.php");
 
 class Viaje {
   private $codeViaje;
+
   private $destino;
+
   private $maxPasajeros;
+
   private $responsableV;
+
   private $colPasajeros = array();
+
   private $costoViaje;
+
   private $sumaCostos;
+
   private $cantPasajeros;
 
   public function __construct($codeViaje, $destino, $maxPasajeros, $responsableV, $colPasajeros, $costoViaje, $sumaCostos, $cantPasajeros) {
@@ -96,24 +103,17 @@ class Viaje {
 
   }
 
- /* public function getPasajeros() {
+  public function getColPasajeros(){
 
-    return $this->pasajeros;
+    return $this->colPasajeros;
 
-  }*/
+  }
 
-  /*public function agregarPasajeros($pasajeros)  {
+  public function setColPasajeros ($colPasajeros){
 
+    $this->colPasajeros = $colPasajeros;
 
-    
-    $colPasajeros = $this->getColPasajeros();
-
-    array_push($colPasajeros, $pasajeros);
-
-    $this->setColPasajeros($colPasajeros);
-    
-
-  }*/
+  }
 
   public function agregarPasajero2($pasajeros) {
 
@@ -147,17 +147,7 @@ class Viaje {
     return null;
   }
 
-  public function getColPasajeros(){
 
-    return $this->colPasajeros;
-
-  }
-
-  public function setColPasajeros ($colPasajeros){
-
-    $this->colPasajeros = $colPasajeros;
-
-  }
   
 public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nuevoDoc, $nuevoTelefono){
   $encontrado = false;
@@ -197,42 +187,24 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
     return $estado;
   }
 
-  public function venderViaje($pasajeros){
-
+  public function venderViaje($objPasajero){
     $colPasajeros = $this->getColPasajeros();
-
-    $cantMax = $this->getCantMaxPasajeros();
-
-    $costoFinal = $this->getCostoViaje();
-
-    while ($this->hayPasajesDisponibles() == true){
-
-      //$this->agregarPasajeros($pasajeros);
-      array_push($colPasajeros, $pasajeros);
-
-      $this->setColPasajeros($colPasajeros);
-
-      $cantPasajViaje = $this->getCantPasajeros();
-
-      $cantPasajDisp = $cantMax - $cantPasajViaje; 
-
-      $this->setCantMaxPasajeros($cantPasajDisp);
-
-      //se suman los valores de costo con los incrementos
-
-      $incremento = ($pasajeros->darPorcentajeIncremento() / 100);
-
-      $costoFinal = $costoFinal + ($costoFinal * $incremento);
-
+    $costoViaje = $this->getCostoViaje();
+    $costos = $this->getSumaCostos();
+    $porcentaje = $objPasajero->darPorcentajeIncremento();
+    
+    if ($this->hayPasajesDisponibles()){
+        array_push($colPasajeros, $objPasajero);
+        $this->setColPasajeros($colPasajeros);
+        $costoFinal = ($costoViaje * $porcentaje) / 100;
+        $costoFinal = $costoFinal + $costoViaje;
+        $costos = $costos + $costoFinal;
+        $this->setSumaCostos($costos);
+    }else {
+        $costoFinal = 0;
     }
-
-    $this->setSumaCostos($costoFinal);
-
-    $costoTotal = $this->getSumaCostos();
-
-    return $costoTotal;
-
-  }
+    return $costoFinal;
+}
 
 
   public function __toString()
@@ -263,7 +235,20 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
     return $texto;
 }*/
 
-  public function mostrarPasajeros() {
+  public function mostrarPasajeros(){
+    $colPasajeros = $this->getColPasajeros();
+    $cant = count($colPasajeros);
+    $texto = "";
+    for($i = 0; $i < $cant; $i++){
+        $texto = $texto . $colPasajeros[$i];
+    }
+
+    return $texto;
+  }
+
+
+
+  public function mostrarPasajeros2() {
 
     $colPasajeros = $this->getColPasajeros();
 
