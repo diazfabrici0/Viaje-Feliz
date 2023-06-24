@@ -176,12 +176,8 @@ while($opcion != 4) {
           $costo = $viaje->venderViaje($pasajeros);
         
         }
-       
-
+    
       }
-
-      
-
 
       break;
 
@@ -219,7 +215,7 @@ while($opcion != 4) {
 
                 $codeViaje = readline("Ingrese el nuevo código: ");
 
-                $viaje->ponerCodigoViaje($codeViaje);
+                $viaje->setCodigoViaje($codeViaje);
 
               }else{
 
@@ -274,8 +270,35 @@ while($opcion != 4) {
 
                     $telefono = readline("Ingrese el nuevo número de teléfono: ");
 
+                    $numAsiento = readline("Ingrese su numero de asiento: ");
 
-                    $viaje->modificarPasajerox($nDoc, $nombre, $apellido, $numDoc, $telefono);
+                    $numTicket = readline("Ingrese su numero de ticket: ");
+
+                    $va = readline("Es un pasajero vip? Si | No " );
+
+
+                    $va2 = readline("Es un pasajero con necesidades especiales? Si | No");
+
+                    if(strtolower($va) == "si"){
+
+                      $numViajeroFrecuente = readline("Ingrese el numero de viajero frecuente: ");
+
+                      $cantMillasPasajero = readline("Cantidad de millas recorridas: ");
+
+                      $viaje->modificarPasajeroVip($nDoc, $nombre, $apellido, $numDoc, $telefono, $numAsiento, $numTicket, $numViajeroFrecuente, $cantMillasPasajero);
+
+                    }elseif(strtolower($va2 == "si")){
+
+                      $requiereSillaRuedas = readline("Requiere silla de ruedas?: ");
+
+                      $requiereAsistencia = readline("Requiere asistencia?: ");
+
+                      $requiereComida = readline("Requiere comida especial?: ");
+
+                      $viaje->modificarPasajeroEsp($nDoc, $nombre, $apellido, $numDoc, $telefono, $numAsiento, $numTicket, $requiereSillaRuedas, $requiereAsistencia, $requiereComida);
+                    }else{
+                      $viaje->modificarPasajerox($nDoc, $nombre, $apellido, $numDoc, $telefono);
+                    }
 
                     break;
                   
@@ -287,21 +310,47 @@ while($opcion != 4) {
                   
               case 5:
 
-                $nombre = readline("Ingrese el nombre del pasajero " . ($i+1) . ": ");
+                $vip = readline("Es un pasajero Vip?: ");
 
-                $apellido = readline("Ingrese el apellido del pasajero " . ($i+1) . ": ");
+                $especial = readline("Es un pasajero con requerimientos especiales: ");
+        
+                if($vip == "si" || $vip == "Si" || strtolower($vip) == "sí" || strtolower($vip) == "Sí"){
+        
+                  $pasajeroVip = agregarVip();
+        
+                  $costos = $viaje->venderViaje($pasajeroVip);
+        
+                }elseif($especial == "si" || $especial == "Si" || strtolower($especial) == "sí" || strtolower($especial) == "Sí"){
+        
+                  $pasajeroEsp = agregarEsp();
+        
+                  $costos = $viaje->venderViaje($pasajeroEsp);
+        
+                }else{
+        
+                  $nombre = readline("Ingrese el nombre del pasajero: ");
+        
+                  $apellido = readline("Ingrese el apellido del pasajero: ");
+          
+                  $numDoc = readline("Ingrese el número de documento del pasajero: ");
+          
+                  $telefono = readline("Ingrese el número de telefono del pasajero: ");
+        
+                  $numAsiento = readline("Ingrese el número de su asiento: ");
+        
+                  $numTicket = readline("Ingrese su número de ticket: ");
+        
+                  $pasajeros = new Pasajero($nombre, $apellido, $numDoc, $telefono, $numAsiento, $numTicket);
+        
+                  $costo = $viaje->venderViaje($pasajeros);
 
-                $numDoc = readline("Ingrese el número de documento del pasajero " . ($i+1) . ": ");
-
-                $telefono = readline("Ingrese el número de telefono del pasajero " . ($i+1) . ": ");
-
-              
-                $pasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono, $numAsiento, $numTicket);
-
-                $cad = $viaje->agregarPasajero2($pasajero);
-
-                echo $cad;
-
+                  if($costo > 0 ){
+                    echo "Se agrego el pasajero con exito";
+                  }else{
+                    echo "No se pudo agregar el pasajero";
+                  }
+                
+                }
                 break;
             
               case 6:
