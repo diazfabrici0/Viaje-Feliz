@@ -146,29 +146,94 @@ class Viaje {
     }
     return null;
   }
-
-
   
 public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nuevoDoc, $nuevoTelefono){
   $encontrado = false;
   $colPasajeros = $this->getColPasajeros();
-  foreach($colPasajeros as $index => $pasajeros) {
-    if($pasajeros->getNroDoc() == $docModif){
-      $pasajeros->setNombre($nuevoNombre);
-      $pasajeros->setApellido($nuevoApellido);
-      $pasajeros->setNroDoc($nuevoDoc);
-      $pasajeros->setTelefono($nuevoTelefono);
-      
+  $cant = count($colPasajeros);
+  for($i = 0; $i < $cant; $i++){
+    $objPasajero = $colPasajeros[$i];
+
+    if($objPasajero->getNroDoc() == $docModif){
+      $objPasajero->setNombre($nuevoNombre);
+      $objPasajero->setApellido($nuevoApellido);
+      $objPasajero->setNroDoc($nuevoDoc);
+      $objPasajero->setTelefono($nuevoTelefono);
+
       $encontrado = true;
-      echo "Se modifico el pasajero de manera exitosa \n";
+      $cad = "Se modifico el pasajero de manera exitosa \n";
       break;
     }
+
   }
 
   if (!$encontrado){
-    echo "No se encontró un pasajero con el numero de documento especificado";
+    $cad = "No se encontró un pasajero con el numero de documento especificado";
+  }
+  return $cad;
+}
+
+public function modificarPasajeroVIP($docModif, $nuevoNombre, $nuevoApellido, $nuevoDoc, $nuevoTelefono, $nroAsiento, $nroTicket, $nroViajeroFrecuente, $cantMillas){
+  $encontrado = false;
+  $colPasajeros = $this->getColPasajeros();
+  $cant = count($colPasajeros);
+  for($i = 0; $i < $cant; $i++){
+    $objPasajero = $colPasajeros[$i];
+
+    if($objPasajero->getNroDoc() == $docModif){
+      $objPasajero->setNombre($nuevoNombre);
+      $objPasajero->setApellido($nuevoApellido);
+      $objPasajero->setNroDoc($nuevoDoc);
+      $objPasajero->setTelefono($nuevoTelefono);
+      $objPasajero->setNumAsiento($nroAsiento);
+      $objPasajero->setNumTicket($nroTicket);
+      $objPasajero->setNumViajeroFrecuente($nroViajeroFrecuente);
+      $objPasajero->setCantMillasPasajero($cantMillas);
+
+
+      $encontrado = true;
+      $cad = "Se modifico el pasajero de manera exitosa \n";
+      break;
+    }
+
   }
 
+  if (!$encontrado){
+    $cad = "No se encontró un pasajero con el numero de documento especificado";
+  }
+  return $cad;
+}
+
+public function modificarPasajeroEsp($docModif, $nuevoNombre, $nuevoApellido, $nuevoDoc, $nuevoTelefono, $nroAsiento, $nroTicket, $requiereSillaRuedas, $requiereAsistencia, $requiereComida){
+  $encontrado = false;
+  $colPasajeros = $this->getColPasajeros();
+  $cant = count($colPasajeros);
+  for($i = 0; $i < $cant; $i++){
+    $objPasajero = $colPasajeros[$i];
+
+    if($objPasajero->getNroDoc() == $docModif){
+      $objPasajero->setNombre($nuevoNombre);
+      $objPasajero->setApellido($nuevoApellido);
+      $objPasajero->setNroDoc($nuevoDoc);
+      $objPasajero->setTelefono($nuevoTelefono);
+      $objPasajero->setNumAsiento($nroAsiento);
+      $objPasajero->setNumTicket($nroTicket);
+      $objPasajero->setRequiereSillaRuedas($requiereSillaRuedas);
+      $objPasajero->setRequeireAsistencia($requiereAsistencia);
+      $objPasajero->steRequiereComida($requiereComida);
+
+
+      $encontrado = true;
+      $cad = "Se modifico el pasajero de manera exitosa \n";
+      break;
+    }
+
+  }
+
+  if (!$encontrado){
+    $cad = "No se encontró un pasajero con el numero de documento especificado";
+  }
+  return $cad;
 }
 
   public function hayPasajesDisponibles(){
@@ -224,17 +289,6 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
 
   }
 
-  /*public function mostrarPasajeros(){
-    $texto = "\nPASAJEROS\n";
-    $pasajeros = $this->getColPasajeros();
-    $cantPasajeros = count($pasajeros);
-    for($i = 0; $i < $cantPasajeros; $i++){
-        $texto = $texto . $pasajeros[$i];
-    }
-
-    return $texto;
-}*/
-
   public function mostrarPasajeros(){
     $colPasajeros = $this->getColPasajeros();
     $cant = count($colPasajeros);
@@ -244,36 +298,6 @@ public function modificarPasajerox($docModif, $nuevoNombre, $nuevoApellido, $nue
     }
 
     return $texto;
-  }
-
-
-
-  public function mostrarPasajeros2() {
-
-    $colPasajeros = $this->getColPasajeros();
-
-    $cadena = "   PASAJEROS \n";
-
-    foreach($colPasajeros as $index => $pasajeros) {
-
-      $cadena .= "\nPasajero " . ($index + 1)  .   
-
-      "\n\nNombre: " . $pasajeros->getNombre() . 
-
-      "\nApellido: " . $pasajeros->getApellido() .
-
-      "\nNumero de documento: " . $pasajeros->getNroDoc() .
-
-      "\nNumero de telefono: " . $pasajeros->getTelefono() .
-      
-      "\nNumero de  Asiento: " . $pasajeros->getNumAsiento() .
-
-      "\nNumero de Ticket: " . $pasajeros->getNumTicket() .
-
-      "\n";
-
-    }
-    return $cadena;
   }
 
   public function borrarPasajero($nDoc) {
